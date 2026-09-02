@@ -22,8 +22,82 @@
     <canvas id="myCanvas" width="1300" height="600"></canvas>
     
     <script>
-      // JavaScript code goes here
+      // ========== PART 1: GET CANVAS AND CONTEXT ==========
+      // Put this at the very top of your script
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // ========== PART 2: CREATE PLAYER OBJECT ==========
+      // Define your player's data
+      let player = {
+        x: 650,           // Starting X position (center of canvas)
+        y: 300,           // Starting Y position (center of canvas)
+        width: 50,        // Player width
+        height: 50,       // Player height
+        speed: 5          // How fast the player moves
+      };
+
+      // ========== PART 3: CREATE KEYS OBJECT ==========
+      // Track which keys are being pressed
+      let keys = {
+        w: false,
+        a: false,
+        s: false,
+        d: false
+      };
+
+      // ========== PART 4: KEYBOARD EVENT LISTENERS ==========
+      // Listen for keys being pressed down
+      window.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'w') keys.w = true;
+        if (e.key.toLowerCase() === 'a') keys.a = true;
+        if (e.key.toLowerCase() === 's') keys.s = true;
+        if (e.key.toLowerCase() === 'd') keys.d = true;
+      });
+
+      // Listen for keys being released
+      window.addEventListener('keyup', (e) => {
+        if (e.key.toLowerCase() === 'w') keys.w = false;
+        if (e.key.toLowerCase() === 'a') keys.a = false;
+        if (e.key.toLowerCase() === 's') keys.s = false;
+        if (e.key.toLowerCase() === 'd') keys.d = false;
+      });
+
+      // ========== PART 5: UPDATE FUNCTION ==========
+      // This function moves the player
+      function updatePlayer() {
+        if (keys.w) player.y -= player.speed;  // Move up
+        if (keys.s) player.y += player.speed;  // Move down
+        if (keys.a) player.x -= player.speed;  // Move left
+        if (keys.d) player.x += player.speed;  // Move right
+      }
+
+      // ========== PART 6: DRAW FUNCTION ==========
+      // This function draws the player on the canvas
+      function drawPlayer() {
+        ctx.fillStyle = '#FFFFFF';  // White color
+        ctx.fillRect(player.x, player.y, player.width, player.height);
+      }
+
+      // ========== PART 7: GAME LOOP ==========
+      // This runs continuously to update and redraw everything
+      function gameLoop() {
+        // Clear the canvas (paint it black)
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Update and draw
+        updatePlayer();
+        drawPlayer();
+        
+        // Repeat this function ~60 times per second
+        requestAnimationFrame(gameLoop);
+      }
+
+      // ========== PART 8: START THE GAME ==========
+      // Call this once to start everything
+      gameLoop();
      
-     </script>
+    </script>
   </body>
 </html>
