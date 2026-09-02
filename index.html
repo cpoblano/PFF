@@ -23,128 +23,119 @@
     
     <script>
       // ========== PART 1: GET CANVAS AND CONTEXT ==========
-      // Put this at the very top of your script
       const canvas = document.getElementById('myCanvas');
       const ctx = canvas.getContext('2d');
 
       // ========== PART 2: CREATE PLAYER OBJECT ==========
-      // Define your player's data
       let player = {
-        x: 650,           // Starting X position (center of canvas)
-        y: 0,           // Starting Y position
-        width: 50,        // Player width
-        height: 50,       // Player height
-        speed: 5          // How fast the player moves
+        x: 650,
+        y: 0,
+        width: 50,
+        height: 50,
+        speed: 5,
+        velocityY: 0,      // ADDED THIS
+        isJumping: false   // ADDED THIS
       };
 
-      //Platforms
-      let Platforms = [
-        {x: 0, y:550, width: 1300, height: 50},
-        {x: 0, y:450, width: 300, height: 20},
-        {x: 0, y:350, width: 300, height: 20},
-      ]
-
+      // ========== PLATFORMS - FIXED: lowercase 'platforms' ==========
+      let platforms = [
+        {x: 0, y: 550, width: 1300, height: 50},
+        {x: 0, y: 450, width: 300, height: 20},
+        {x: 0, y: 350, width: 300, height: 20},
+      ];
 
       // ========== PART 3: CREATE KEYS OBJECT ==========
-      // Track which keys are being pressed
       let keys = {
         w: false,
         a: false,
         s: false,
         d: false,
-        space : false
+        space: false
       };
 
       // ========== PART 4: KEYBOARD EVENT LISTENERS ==========
-      // Listen for keys being pressed down
       window.addEventListener('keydown', (e) => {
         if (e.key.toLowerCase() === 'w') keys.w = true;
         if (e.key.toLowerCase() === 'a') keys.a = true;
         if (e.key.toLowerCase() === 's') keys.s = true;
         if (e.key.toLowerCase() === 'd') keys.d = true;
-        if (e.code === 'space') keys.space = true;
+        if (e.code === 'Space') keys.space = true;  // FIXED: 'Space' not 'space'
       });
 
-      // Listen for keys being released
       window.addEventListener('keyup', (e) => {
         if (e.key.toLowerCase() === 'w') keys.w = false;
         if (e.key.toLowerCase() === 'a') keys.a = false;
         if (e.key.toLowerCase() === 's') keys.s = false;
         if (e.key.toLowerCase() === 'd') keys.d = false;
-        if (e.code === 'space') keys.space = false;
+        if (e.code === 'Space') keys.space = false;  // FIXED: 'Space' not 'space'
       });
 
-      // ========== PART 5: UPDATE FUNCTION ==========
-      // This function moves the player
-      function updatePlayer() {
-        if (keys.w) player.y -= player.speed;  // Move up
-        if (keys.s) player.y += player.speed;  // Move down
-        if (keys.a) player.x -= player.speed;  // Move left
-        if (keys.d) player.x += player.speed;  // Move right
-        if (keys.space && !player.isJumping) {
-          player.velocityY = -12; //Jump force
-          play.isJumping = true;
-
-          //Gravity
-          player.velocityY += 0.5; //Acceleration due to Gravity
-          player.y += player.velocityY;
-
-          //Check collisions with Platforms
-          checkCollisions();
+      // ========== CHECK COLLISIONS ==========
+      function checkCollisions() {
+        for (let platform of platforms) {
+          if (
+            player.y + player.height >= platform.y &&
+            player.y + player.height <= platform.y + 10 &&
+            player.x + player.width > platform.x &&
+            player.x < platform.x + platform.width
+          ) {
+            player.y = platform.y - player.height;
+            player.velocityY = 0;
+            player.isJumping = false;
+          }
         }
       }
 
+      // ========== DRAW PLATFORMS ==========
+      function drawPlatforms() {
+        ctx.fillStyle = "#00FF00";
+        for (let platform of platforms) {
+          ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+        }
+      }
+
+      // ========== PART 5: UPDATE FUNCTION ==========
+      function updatePlayer() {
+        // Horizontal movement
+        if (keys.w) player.y -= player.speed;
+        if (keys.s) player.y += player.speed;
+        if (keys.a) player.x -= player.speed;
+        if (keys.d) player.x += player.speed;
+
+        // Jumping - FIXED: moved OUTSIDE the jump condition
+        if (keys.space && !player.isJumping) {
+          player.velocityY = -12;
+          player.isJumping = true;  // FIXED: was 'play.isJumping'
+        }
+
+        // Gravity - FIXED: moved OUTSIDE the jump condition
+        player.velocityY += 0.5;
+        player.y += player.velocityY;
+
+        // Check collisions - FIXED: moved OUTSIDE the jump condition
+        checkCollisions();
+      }
+
       // ========== PART 6: DRAW FUNCTION ==========
-      // This function draws the player on the canvas
       function drawPlayer() {
-        ctx.fillStyle = '#FFFFFF';  // White color
+        ctx.fillStyle = '#FFFFFF';
         ctx.fillRect(player.x, player.y, player.width, player.height);
       }
 
       // ========== PART 7: GAME LOOP ==========
-      // This runs continuously to update and redraw everything
       function gameLoop() {
-        // Clear the canvas (paint it black)
         ctx.fillStyle = '#000000';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Update and draw
+        // FIXED: Added drawPlatforms() call
+        drawPlatforms();
         updatePlayer();
         drawPlayer();
         
-        // Repeat this function ~60 times per second
         requestAnimationFrame(gameLoop);
       }
 
       // ========== PART 8: START THE GAME ==========
-      // Call this once to start everything
-
-      //Check Collisions
-function checkCollisions() {
-  for (let platform of platforms) {
-    // Check if player bottom is touching platform top
-    if (
-      player.y + player.height >= platform.y &&           // Player bottom >= platform top
-      player.y + player.height <= platform.y + 10 &&      // But not too far below
-      player.x + player.width > platform.x &&             // Player right > platform left
-      player.x < platform.x + platform.width             // Player left < platform right
-    ) {
-      player.y = platform.y - player.height;  // Place player on top
-      player.velocityY = 0;                   // Stop downward movement
-      player.isJumping = false;               // Allow jumping again
-    }
-  }
-}
-
-      //Draw Platforms
-            function drawPlatforms() {
-        ctx.fillStyle = "#00FF00"; //Green color
-        for (let platform of platforms) {
-          ctx.fillRect(platform.x, platform.y,platform.width, platform.height)
-        }
-      }
-
-
       gameLoop();
      
     </script>
