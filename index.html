@@ -31,11 +31,19 @@
       // Define your player's data
       let player = {
         x: 650,           // Starting X position (center of canvas)
-        y: 300,           // Starting Y position (center of canvas)
+        y: 0,           // Starting Y position
         width: 50,        // Player width
         height: 50,       // Player height
         speed: 5          // How fast the player moves
       };
+
+      //Platforms
+      let Platforms = [
+        {x: 0, y:550, width: 1300, height: 50},
+        {x: 0, y:450, width: 300, height: 20},
+        {x: 0, y:350, width: 300, height: 20},
+      ]
+
 
       // ========== PART 3: CREATE KEYS OBJECT ==========
       // Track which keys are being pressed
@@ -43,7 +51,8 @@
         w: false,
         a: false,
         s: false,
-        d: false
+        d: false,
+        space : false
       };
 
       // ========== PART 4: KEYBOARD EVENT LISTENERS ==========
@@ -53,6 +62,7 @@
         if (e.key.toLowerCase() === 'a') keys.a = true;
         if (e.key.toLowerCase() === 's') keys.s = true;
         if (e.key.toLowerCase() === 'd') keys.d = true;
+        if (e.code === 'space') keys.space = true;
       });
 
       // Listen for keys being released
@@ -61,6 +71,7 @@
         if (e.key.toLowerCase() === 'a') keys.a = false;
         if (e.key.toLowerCase() === 's') keys.s = false;
         if (e.key.toLowerCase() === 'd') keys.d = false;
+        if (e.code === 'space') keys.space = false;
       });
 
       // ========== PART 5: UPDATE FUNCTION ==========
@@ -70,6 +81,17 @@
         if (keys.s) player.y += player.speed;  // Move down
         if (keys.a) player.x -= player.speed;  // Move left
         if (keys.d) player.x += player.speed;  // Move right
+        if (keys.space && !player.isJumping) {
+          player.velocityY = -12; //Jump force
+          play.isJumping = true;
+
+          //Gravity
+          player.velocityY += 0.5; //Acceleration due to Gravity
+          player.y += player.velocityY;
+
+          //Check collisions with Platforms
+          checkCollisions();
+        }
       }
 
       // ========== PART 6: DRAW FUNCTION ==========
@@ -96,6 +118,33 @@
 
       // ========== PART 8: START THE GAME ==========
       // Call this once to start everything
+
+      //Check Collisions
+function checkCollisions() {
+  for (let platform of platforms) {
+    // Check if player bottom is touching platform top
+    if (
+      player.y + player.height >= platform.y &&           // Player bottom >= platform top
+      player.y + player.height <= platform.y + 10 &&      // But not too far below
+      player.x + player.width > platform.x &&             // Player right > platform left
+      player.x < platform.x + platform.width             // Player left < platform right
+    ) {
+      player.y = platform.y - player.height;  // Place player on top
+      player.velocityY = 0;                   // Stop downward movement
+      player.isJumping = false;               // Allow jumping again
+    }
+  }
+}
+
+      //Draw Platforms
+            function drawPlatforms() {
+        ctx.fillStyle = "#00FF00"; //Green color
+        for (let platform of platforms) {
+          ctx.fillRect(platform.x, platform.y,platform.width, platform.height)
+        }
+      }
+
+
       gameLoop();
      
     </script>
