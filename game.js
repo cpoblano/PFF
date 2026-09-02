@@ -15,10 +15,9 @@ class Platform {
 
 // Create platforms array
 const platforms = [
-  new Platform(0, 800, 1700, 100),        // Ground
+  new Platform(0, 800, 1300, 100),        // Ground
   new Platform(200, 650, 300, 30),        // Platform 1
   new Platform(700, 550, 300, 30),        // Platform 2
-  new Platform(1200, 450, 300, 30),       // Platform 3
 ];
 
 // Draw all platforms
