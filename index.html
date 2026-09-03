@@ -39,9 +39,9 @@
 
       // ========== PLATFORMS - FIXED: lowercase 'platforms' ==========
       let platforms = [
-        {x: 0, y: 550, width: 1300, height: 50},
-        {x: 0, y: 450, width: 300, height: 20},
-        {x: 0, y: 350, width: 300, height: 20},
+        {x: 0, y: 600, width: 1300, height: 50},
+        {x: 750, y: 500, width: 300, height: 20},
+        {x: 0, y: 400, width: 300, height: 20},
       ];
 
       // ========== PART 3: CREATE KEYS OBJECT ==========
@@ -104,7 +104,7 @@
 
         // Jumping - FIXED: moved OUTSIDE the jump condition
         if (keys.space && !player.isJumping) {
-          player.velocityY = -12;
+          player.velocityY = -16;
           player.isJumping = true;  // FIXED: was 'play.isJumping'
         }
 
