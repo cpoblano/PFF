@@ -34,7 +34,7 @@
         height: 50,
         speed: 5,
         velocityY: 0,      // ADDED THIS
-        isJumping: false   // ADDED THIS
+        jumpsLeft: 2   // Changed isJumping to jumpsLeft
       };
 
       // ========== PLATFORMS - FIXED: lowercase 'platforms' ==========
@@ -52,6 +52,8 @@
         d: false,
         space: false
       };
+
+      let previousSpaceState = false;
 
       // ========== PART 4: KEYBOARD EVENT LISTENERS ==========
       window.addEventListener('keydown', (e) => {
@@ -81,13 +83,13 @@
           ) {
             player.y = platform.y - player.height;
             player.velocityY = 0;
-            player.isJumping = false;
+            player.jumpsLeft = 2;
           }
         }
     
       //Fix player not being able to jump after landing bug
       if (player.y + player.height >= canvas.height){
-        player.isJumping = false;
+        player.jumpsLeft = 2;
       }
     }
 
@@ -108,10 +110,12 @@
         if (keys.d) player.x += player.speed;
 
         // Jumping - FIXED: moved OUTSIDE the jump condition
-        if (keys.space && !player.isJumping) {
+        if (keys.space && !previousSpaceState && player.jumpsLeft > 0) {
           player.velocityY = -16;
-          player.isJumping = true;  // FIXED: was 'play.isJumping'
+          player.jumpsLeft = 1;  // sets jumps left to 1 after inital jump
         }
+
+        previousSpaceState = keys.space;
 
         // Gravity - FIXED: moved OUTSIDE the jump condition
         player.velocityY += 0.5;
