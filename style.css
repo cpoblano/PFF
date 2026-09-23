@@ -9,9 +9,9 @@ body {
 
 button {
     width: fit-content;
-    background-color: rgb(190, 85, 204);
+    background-color: rgb(44, 44, 44);
     color: white;
-    border: solid 2px rgb(119, 18, 133);
+    border: solid 2px rgb(44, 44, 44);
     border-radius: 10px;
     padding: 1em;
     font-weight: bold;
@@ -25,9 +25,9 @@ button:hover {
     position: relative;
     display: block;
     margin: 0 auto;
-    background-color: rgb(158, 158, 158);
+    background-color: rgb(44, 44, 44);
     border-radius: 10px;
-    border: solid 4px rgb(83, 73, 73);
+    border: solid 4px rgb(44, 44, 44);
 }
 
 .side {
