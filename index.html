@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>osu!mania web</title>
+</head>
+<body>
+    <canvas id="game" width="500" height="900"></canvas>
+
+    <div class="side">
+        <div class="stats">
+            <span id="score">Score: 0</span>
+            <span id="accuracy">Accuracy: 100%</span>
+            <span id="grade">Grade: ?</span>
+            <span id="misses">Misses: 0</span>
+            <span id="highestcombo">Highest combo: 0</span>
+        </div>
+
+        <div class="settings">
+            <button id="generate">Generate New Map</button>
+            <div>
+                <span id="noteSpeedLabel">Note Speed</span>
+                <input type="text" id="noteSpeed" value="10">
+            </div>
+            <div>
+                <span id="noteAmountLabel">Note Amount</span>
+                <input type="text" id="noteAmount" value="100">
+            </div>
+            <div>
+                <span id="doubleNotesLabel">Double Notes</span>
+                <input type="checkbox" id="doubleNotes" checked="true">
+            </div>
+            <button id="pause">Pause</button>
+        </div>
+    </div>
+
+    <div id="combo">0</div>
+
+    <div id="controls">Controls: ASKL</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

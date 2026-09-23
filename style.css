@@ -1,0 +1,129 @@
+* {
+    background-color: rgb(44, 44, 44);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+button {
+    width: fit-content;
+    background-color: rgb(190, 85, 204);
+    color: white;
+    border: solid 2px rgb(119, 18, 133);
+    border-radius: 10px;
+    padding: 1em;
+    font-weight: bold;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#game {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    background-color: rgb(158, 158, 158);
+    border-radius: 10px;
+    border: solid 4px rgb(83, 73, 73);
+}
+
+.side {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 5%;
+    bottom: 40%;
+    gap: 3em;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#score {
+    color: white;
+    font-size: 56px;
+}
+
+#combo {
+    position: absolute;
+    color: white;
+    font-size: 80px;
+    right: 25%;
+    bottom: 50%;
+    text-align: left;
+}
+
+#misses {
+    color: white;
+    font-size: 32px;
+}
+
+#highestcombo {
+    color: white;
+    font-size: 32px;
+}
+
+#accuracy {
+    color: white;
+    font-size: 32px;
+}
+
+#grade {
+    color: white;
+    font-size: 32px;
+}
+
+#controls {
+    position: absolute;
+    color: white;
+    font-size: 32px;
+    left: 5%;
+    bottom: 5%;
+}
+
+#noteSpeedLabel {
+    color: white;
+    font-weight: bold;
+}
+
+#noteSpeed {
+    background-color: rgb(248, 204, 255);
+    border: solid 1px rgb(119, 18, 133);
+    width: 75px;
+    border-radius: 5px;
+}
+
+#noteAmountLabel {
+    color: white;
+    font-weight: bold;
+}
+
+#noteAmount {
+    background-color: rgb(248, 204, 255);
+    border: solid 1px rgb(119, 18, 133);
+    width: 75px;
+    border-radius: 5px;
+}
+
+#doubleNotesLabel {
+    color: white;
+    font-weight: bold;
+}
+
+#doubleNotes {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+}
