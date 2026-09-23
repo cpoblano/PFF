@@ -36,15 +36,15 @@ let noteSpeedQuery = 10
 let noteAmount = 100
 let doubleNotes = true
 
-const ASKL = [
+const DFJK = [
     { x: 100, y: 850, radius: 45, color: circleColor},
     { x: 200, y: 850, radius: 45, color: circleColor},
     { x: 300, y: 850, radius: 45, color: circleColor},
     { x: 400, y: 850, radius: 45, color: circleColor}
 ]
 
-function drawASKL() {
-    for (let circle of ASKL) {
+function drawDFJK() {
+    for (let circle of DFJK) {
         ctx.beginPath()
         ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI)
         ctx.fillStyle = circle.color
@@ -141,16 +141,16 @@ document.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase()
     switch (key) {
         case "d":
-            ASKL[0].color = circleColorPressed
+            DFJK[0].color = circleColorPressed
             break
         case "f":
-            ASKL[1].color = circleColorPressed
+            DFJK[1].color = circleColorPressed
             break
         case "j":
-            ASKL[2].color = circleColorPressed
+            DFJK[2].color = circleColorPressed
             break
         case "k":
-            ASKL[3].color = circleColorPressed
+            DFJK[3].color = circleColorPressed
             break
     }
     checkHit(key)
@@ -159,16 +159,16 @@ document.addEventListener("keydown", (event) => {
 document.addEventListener("keyup", (event) => {
     switch (event.key.toLowerCase()) {
         case "d":
-            ASKL[0].color = circleColor
+            DFJK[0].color = circleColor
             break
         case "f":
-            ASKL[1].color = circleColor
+            DFJK[1].color = circleColor
             break
         case "j":
-            ASKL[2].color = circleColor
+            DFJK[2].color = circleColor
             break
         case "k":
-            ASKL[3].color = circleColor
+            DFJK[3].color = circleColor
             break
     }
 })
@@ -306,7 +306,7 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     updateNotes()
-    drawASKL()
+    drawDFJK()
     drawNotes()
 
     if (!stopped) {
