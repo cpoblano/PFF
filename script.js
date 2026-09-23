@@ -140,16 +140,16 @@ function checkHit(key) {
 document.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase()
     switch (key) {
-        case "a":
+        case "d":
             ASKL[0].color = circleColorPressed
             break
-        case "s":
+        case "f":
             ASKL[1].color = circleColorPressed
             break
-        case "k":
+        case "j":
             ASKL[2].color = circleColorPressed
             break
-        case "l":
+        case "k":
             ASKL[3].color = circleColorPressed
             break
     }
@@ -158,16 +158,16 @@ document.addEventListener("keydown", (event) => {
 
 document.addEventListener("keyup", (event) => {
     switch (event.key.toLowerCase()) {
-        case "a":
+        case "d":
             ASKL[0].color = circleColor
             break
-        case "s":
+        case "f":
             ASKL[1].color = circleColor
             break
-        case "k":
+        case "j":
             ASKL[2].color = circleColor
             break
-        case "l":
+        case "k":
             ASKL[3].color = circleColor
             break
     }
