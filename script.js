@@ -78,7 +78,7 @@ function updateAccuracy() {
 }
 
 function checkHit(key) {
-    const map = { a: 0, s: 1, k: 2, l: 3 }
+    const map = { d: 0, f: 1, j: 2, k: 3 }
     const col = map[key]
     if (col === undefined) return
 
@@ -230,7 +230,7 @@ let noteMap = [
 
 function generateMap(amount, doubleNotes) {
     let lastKeys = []
-    const keyArr = ["a", "s", "k", "l"]
+    const keyArr = ["d", "f", "j", "k"]
     for (let i = 0; i < amount; i++) {
         let x = Math.floor(Math.random() * 4) * 100 + 100
         let y = (-i*100) + (50 ? Math.random() < 0.25 : 0)
